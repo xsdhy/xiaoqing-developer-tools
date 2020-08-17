@@ -1,0 +1,17 @@
+{
+  "name": "xiaoqing-developer-tools",
+  "version": "0.0.1",
+  "description": "XiaoQing,developer,tools",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "xiaoqing",
+    "developer-tools"
+  ],
+  "author": "xsdhy",
+  "devDependencies": {
+    "electron": "^9.2.0"
+  }
+}

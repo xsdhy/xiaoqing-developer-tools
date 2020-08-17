@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<!--    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+<!--    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+
+    <title>小青开发者工具</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+    <div class="row" style="text-align: center;margin-top: 50px;">
+        <h1>小青开放平台</h1>
+    </div>
+    <div class="row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">要访问的url</span>
+            </div>
+            <input id="url" type="text" class="form-control">
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">你的token</span>
+            </div>
+            <input id="token" type="text" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <button id="button_to_start" type="button" class="btn btn-primary">开始</button>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- You can also require other files to run in this process -->
+
+<script src="./renderer.js"></script>
+</body>
+</html>

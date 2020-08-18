@@ -13,25 +13,14 @@ const Store = require('electron-store');
 const store = new Store();
 
 const filter = {
-    // urls: ['http://*.kakayang.cn/*']
-    urls: []
+    urls: ['*://*.xiaoqing.xyz/*'],
+    // urls: []
 };
 
 var mainWindow
 var webView
 
 let template = [
-    {
-        label: '开放平台',
-        submenu: [
-            {
-                label: '主页',
-                click: function (item, focusedWindow) {
-                    mainWindow.loadFile('index.html')
-                }
-            }
-        ]
-    },
     {
         label: '编辑',
         submenu: [{

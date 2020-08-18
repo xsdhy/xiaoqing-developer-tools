@@ -22,17 +22,6 @@ var webView
 
 let template = [
     {
-        label: '开放平台',
-        submenu: [
-            {
-                label: '主页',
-                click: function (item, focusedWindow) {
-                    mainWindow.loadFile('index.html')
-                }
-            }
-        ]
-    },
-    {
         label: '编辑',
         submenu: [{
             label: '撤销',

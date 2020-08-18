@@ -13,8 +13,8 @@ const Store = require('electron-store');
 const store = new Store();
 
 const filter = {
-    // urls: ['http://*.kakayang.cn/*']
-    urls: []
+    urls: ['*://*.xiaoqing.xyz/*'],
+    // urls: []
 };
 
 var mainWindow

@@ -7,6 +7,7 @@ const BrowserWindow = electron.BrowserWindow
 const BrowserView = electron.BrowserView
 const Menu = electron.Menu
 const app = electron.app
+const ipcMain = electron.ipcMain;
 
 const Store = require('electron-store');
 const store = new Store();
@@ -17,6 +18,7 @@ const filter = {
 };
 
 var mainWindow
+var webView
 
 let template = [
     {
@@ -150,11 +152,18 @@ let template = [
 ]
 
 
+ipcMain.on('open-url', function (event, arg) {
+    // console.log("收到open-url")
+    // console.log(arg);
+    webView.webContents.loadURL(arg);
+});
+
+
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
         width: 1000,
-        height: 700,
+        height: 800,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -162,13 +171,23 @@ function createWindow() {
     })
     mainWindow.webContents.session.webRequest.onBeforeSendHeaders(filter, onBeforeSendHeaders);
 
-    // let view = new BrowserView()
-    // mainWindow.setBrowserView(view)
-    // view.setBounds({ x: 0, y: 100, width: 500, height: 500 })
-    // view.webContents.loadFile('index.html')
+    webView = new BrowserView({
+        webPreferences: {
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
+        }
+    })
+
+
+    mainWindow.setBrowserView(webView)
+    webView.setBounds({x: 0, y: 60, width: 1000, height: 700})
+    // webView.setBounds({x: 0, y: 700, width: 1000, height: 100})
+    webView.webContents.loadFile('index.html')
+    webView.setAutoResize({width: true, height: true})
+    webView.webContents.openDevTools()
 
     // and load the index.html of the app.
-    mainWindow.loadFile('index.html')
+    mainWindow.loadFile('top.html')
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()

@@ -5,6 +5,7 @@
 // selectively enable features needed in the rendering
 // process.
 
+const { ipcRenderer } = require('electron')
 const Store = require('electron-store');
 const store = new Store();
 
@@ -13,10 +14,13 @@ var token=document.getElementById('token');
 var url=document.getElementById('url');
 
 button_to_start.onclick=toStart;
+console.log("获取到到token",store.get('token'))
+token.value=store.get('token')
 
 function toStart(){
-    console.log(token.value)
+    // console.log(token.value)
     console.log(url.value)
+    ipcRenderer.send('open-url', url.value)
     store.set('token',token.value);
-    window.location.href=url.value
+    // window.location.href=url.value
 }

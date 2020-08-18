@@ -13,5 +13,8 @@
   "author": "xsdhy",
   "devDependencies": {
     "electron": "^9.2.0"
+  },
+  "dependencies": {
+    "electron-store": "^6.0.0"
   }
 }

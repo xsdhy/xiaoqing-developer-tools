@@ -23,11 +23,21 @@
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing",
+    "productName": "小青开发者工具",
+    "directories": {
+      "output": "build"
+    },
     "mac": {
-      "target": ["dmg"]
+      "target": [
+        "dmg"
+      ],
+      "icon": "icons/mac.ico"
     },
     "win": {
-      "target": ["nsis"]
+      "target": [
+        "nsis"
+      ],
+      "icon": "icons/win.ico"
     },
     "publish": {
       "provider": "github",

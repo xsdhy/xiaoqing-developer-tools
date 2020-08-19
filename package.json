@@ -30,7 +30,7 @@
       "target": ["nsis", "zip"]
     },
     "publish": {
-      "releaseType": "pre-release"
+      "releaseType": "prerelease"
     }
   }
 }

@@ -30,6 +30,7 @@
       "target": ["nsis", "zip"]
     },
     "publish": {
+      "prodiver": "github",
       "releaseType": "prerelease"
     }
   }

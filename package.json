@@ -22,7 +22,7 @@
     "electron-store": "^6.0.0"
   },
   "build": {
-    "appId": "com.luojiaokeji.xiaoqing",
+    "appId": "com.luojiaokeji.xiaoqing.developertools",
     "productName": "小青开发者工具",
     "directories": {
       "output": "build"
@@ -38,6 +38,11 @@
         "nsis"
       ],
       "icon": "icons/win.ico"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
     },
     "publish": {
       "provider": "github",

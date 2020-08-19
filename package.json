@@ -27,7 +27,7 @@
       "target": ["dmg"]
     },
     "win": {
-      "target": ["nsis", "zip"]
+      "target": ["nsis"]
     },
     "publish": {
       "provider": "github",

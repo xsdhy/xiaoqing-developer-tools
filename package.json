@@ -31,13 +31,15 @@
       "target": [
         "dmg"
       ],
-      "icon": "icons/mac.ico"
+      "icon": "icons/mac.ico",
+      "artifactName": "${productName}-${platform}-${version}.${ext}"
     },
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": "icons/win.ico"
+      "icon": "icons/win.ico",
+      "artifactName": "${productName}-${platform}-${version}.${ext}"
     },
     "nsis": {
       "allowToChangeInstallationDirectory": true,

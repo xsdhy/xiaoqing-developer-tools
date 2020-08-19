@@ -28,6 +28,9 @@
     },
     "win": {
       "target": ["nsis", "zip"]
+    },
+    "publish": {
+      "releaseType": "pre-release"
     }
   }
 }

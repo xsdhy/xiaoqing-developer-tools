@@ -22,7 +22,7 @@
     "electron-store": "^6.0.0"
   },
   "build": {
-    "appId": "com.luojiaokeji.xiaoqing",
+    "appId": "com.luojiaokeji.xiaoqing.developertools",
     "productName": "小青开发者工具",
     "directories": {
       "output": "build"
@@ -31,13 +31,20 @@
       "target": [
         "dmg"
       ],
-      "icon": "icons/mac.ico"
+      "icon": "icons/mac.ico",
+      "artifactName": "${productName}-${platform}-${version}.${ext}"
     },
     "win": {
       "target": [
         "nsis"
       ],
-      "icon": "icons/win.ico"
+      "icon": "icons/win.ico",
+      "artifactName": "${productName}-${platform}-${version}.${ext}"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "perMachine": false
     },
     "publish": {
       "provider": "github",

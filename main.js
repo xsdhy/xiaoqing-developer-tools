@@ -3,11 +3,12 @@
 const path = require('path')
 
 const electron = require('electron')
-const BrowserWindow = electron.BrowserWindow
-const BrowserView = electron.BrowserView
-const Menu = electron.Menu
-const app = electron.app
-const ipcMain = electron.ipcMain;
+const { BrowserWindow, BrowserView, Menu, app, ipcMain, dialog } = electron
+// const BrowserWindow = electron.BrowserWindow
+// const BrowserView = electron.BrowserView
+// const Menu = electron.Menu
+// const app = electron.app
+// const ipcMain = electron.ipcMain;
 
 const Store = require('electron-store');
 const store = new Store();
@@ -93,9 +94,10 @@ let template = [
                 }
             })(),
             click: function (item, focusedWindow) {
-                if (focusedWindow) {
-                    focusedWindow.toggleDevTools()
-                }
+                webView.webContents.toggleDevTools()
+                // if (focusedWindow) {
+                //     focusedWindow.toggleDevTools()
+                // }
             }
         }, {
             type: 'separator'
@@ -109,7 +111,7 @@ let template = [
                         buttons: ['好的'],
                         message: '此演示用于 "菜单" 部分, 展现如何在应用程序菜单中建立可点击的菜单项.'
                     }
-                    electron.dialog.showMessageBox(focusedWindow, options, function () {
+                    dialog.showMessageBox(focusedWindow, options, function () {
                     })
                 }
             }
@@ -153,6 +155,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1000,
         height: 800,
+        minHeight: 500,
+        minWidth: 700,
         webPreferences: {
             nodeIntegration: true,
             preload: path.join(__dirname, 'preload.js')
@@ -169,15 +173,14 @@ function createWindow() {
 
 
     mainWindow.setBrowserView(webView)
-    webView.setBounds({x: 0, y: 60, width: 1000, height: 700})
+    webView.setBounds({ x: 0, y: 60, width: 1000, height: 700 })
     // webView.setBounds({x: 0, y: 700, width: 1000, height: 100})
     webView.webContents.loadFile('index.html')
-    webView.setAutoResize({width: true, height: true})
-    webView.webContents.openDevTools()
+    webView.setAutoResize({ width: true, height: true })
+    webView.webContents.openDevTools({ mode: "right", activate: false })
 
     // and load the index.html of the app.
     mainWindow.loadFile('top.html')
-
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
 }
@@ -208,7 +211,7 @@ app.on('window-all-closed', function () {
 
 function addUpdateMenuItems(items, position) {
     if (process.mas) return
-    const version = electron.app.getVersion()
+    const version = app.getVersion()
     let updateItems = [{
         label: `Version ${version}`,
         enabled: false
@@ -238,7 +241,7 @@ function findReopenMenuItem() {
 
 
 if (process.platform === 'darwin') {
-    const name = electron.app.getName()
+    const name = app.getName()
     template.unshift({
         label: name,
         submenu: [{
@@ -310,5 +313,5 @@ function onBeforeSendHeaders(details, callback) {
         var token = store.get('token')
         details.requestHeaders['Authorization'] = "Bearer " + token;
     }
-    callback({requestHeaders: details.requestHeaders});
+    callback({ requestHeaders: details.requestHeaders });
 }

@@ -1,0 +1,31 @@
+.container {
+  background: #FFF;
+  width: 100%;
+  height: 100%;
+}
+.container .content {
+  width: 90%;
+  margin: 0 auto;
+}
+.container .content .header {
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+}
+.container .content .header span {
+  color: black;
+}
+.container .content .body {
+  margin-top: 10px;
+  position: relative;
+  text-align: center;
+}
+.container .content .body .login-result {
+  width: 256px;
+  height: 256px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: rgba(211, 211, 211, 0.5);
+}

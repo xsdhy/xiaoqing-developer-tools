@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>登录小青开发者工具</title>
+    <link rel="stylesheet" href="../style/login.css"/>
+    <script src="../../utils/request.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      const qrCode = require('jr-qrcode')
+      const Store = require('electron-store')
+      const store = new Store()
+      const {ipcRenderer} = require('electron')
+      let timer = null
+      $(document).ready(function () {
+        getQrCode()
+        addRefreshQrCode()
+      })
+
+      //添加刷新
+      function addRefreshQrCode() {
+        $('.qr_code').click(function (e) {
+          e.stopPropagation()
+          e.preventDefault()
+          getQrCode()
+        })
+      }
+
+      //获取二维码
+      async function getQrCode() {
+        try {
+          let qrCodeDom = $('.qr_code')
+          let res = await request.get("/auth/qr_code")
+          let qrCodeImg = qrCode.getQrBase64(res.qr_code);
+          qrCodeDom.attr('src', qrCodeImg)
+          timer = setInterval(() => {
+            queryScanResult(res.code)
+          }, 2000)
+        } catch (e) {
+          console.log(e)
+        }
+      }
+
+      //轮询
+      async function queryScanResult(code) {
+        try {
+          let res = await request.post("/auth/qr_code", {code})
+          if (res) {
+            clearInterval(timer)
+            const {token, user} = res
+            store.set('token', token)
+            store.set('user', user)
+            ipcRenderer.send('showHome')
+          }
+        } catch (e) {
+
+        }
+      }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <div class="header">
+            <span>请用小青同学扫码登录</span>
+        </div>
+        <div class="body">
+            <img src="" alt="登录二维码" class="qr_code">
+            <!--            <div class="login-result">-->
+            <!--                登录成功-->
+            <!--&lt;!&ndash;                <div style="opacity: 1"></div>&ndash;&gt;-->
+            <!--            </div>-->
+            <!--            点击刷新-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

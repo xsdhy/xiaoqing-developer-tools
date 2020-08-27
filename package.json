@@ -4,7 +4,7 @@
   "description": "XiaoQing,developer,tools",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron src/main.js",
     "build:win64": "electron-builder --win --x64",
     "build:win32": "electron-builder --win --x32",
     "build:mac": "electron-builder --mac"
@@ -19,7 +19,10 @@
     "electron-builder": "^22.8.0"
   },
   "dependencies": {
-    "electron-store": "^6.0.0"
+    "electron-store": "^6.0.0",
+    "axios": "^0.20.0",
+    "jr-qrcode": "^1.1.4",
+    "qrcodejs2": "^0.0.2"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",

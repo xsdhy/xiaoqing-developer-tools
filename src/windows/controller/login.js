@@ -1,6 +1,7 @@
 const {BrowserWindow, app, Menu} = require('electron')
 
 const path = require('path');
+const MenuUtils = require("../../utils/menu");
 const name = app.getName()
 
 class LoginWindow {
@@ -68,8 +69,7 @@ class LoginWindow {
     })
     this.loginWindow.loadURL(`file://${path.join(__dirname, '../views/login.html')}`)
     this.addUpdateMenuItems(this.menu[0].submenu, 1)
-    const menu = Menu.buildFromTemplate(this.menu)
-    Menu.setApplicationMenu(menu)
+    MenuUtils.generateLoginMenu()
     // this.loginWindow.openDevTools()
   }
 

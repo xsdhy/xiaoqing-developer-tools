@@ -22,7 +22,7 @@
     "electron-store": "^6.0.0",
     "axios": "^0.20.0",
     "jr-qrcode": "^1.1.4",
-    "qrcodejs2": "^0.0.2"
+    "jquery": "^3.5.1"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",

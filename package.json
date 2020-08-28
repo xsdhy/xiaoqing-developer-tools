@@ -1,6 +1,6 @@
 {
   "name": "xiaoqing-developer-tools",
-  "version": "0.0.3-beta",
+  "version": "0.0.3-beta2",
   "description": "XiaoQing,developer,tools",
   "main": "src/main.js",
   "scripts": {
@@ -25,7 +25,8 @@
     "electron-store": "^6.0.0",
     "jquery": "^3.5.1",
     "jr-qrcode": "^1.1.4",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "electron-updater": "^4.3.4"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",
@@ -62,6 +63,9 @@
     "publish": {
       "provider": "github",
       "releaseType": "prerelease"
+    },
+    "releaseInfo": {
+      "releaseNotes": "修复文件未添加到Git导致缺少的问题"
     }
   }
 }

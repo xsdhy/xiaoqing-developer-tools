@@ -1,0 +1,11 @@
+.container-fluid .row .app-name {
+  font-size: 1.25rem;
+}
+.container-fluid .row .header-image {
+  height: 40px;
+  border-radius: 100%;
+}
+.container-fluid .row .logout {
+  margin-left: 10px;
+  cursor: pointer;
+}

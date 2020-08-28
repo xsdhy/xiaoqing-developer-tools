@@ -1,5 +1,6 @@
-const {app, ipcMain} = require('electron');
+const {app, ipcMain, dialog} = require('electron');
 const Store = require('electron-store')
+const checkForUpdates = require('./utils/update')
 const store = new Store()
 
 const LoginWindow = require('./windows/controller/login')
@@ -54,6 +55,12 @@ class XiaoQingDeveloperTools {
       this.homeWindow.deInit()
       this.loginWindow.show()
     })
+  }
+
+  //todo 自动更新
+  initUpdate() {
+
+
   }
 
   createLoginWindow() {

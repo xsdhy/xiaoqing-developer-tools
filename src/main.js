@@ -1,10 +1,11 @@
-const {app, ipcMain, dialog} = require('electron');
+const {app, ipcMain} = require('electron');
 const Store = require('electron-store')
 const checkForUpdates = require('./utils/update')
 const store = new Store()
 
 const LoginWindow = require('./windows/controller/login')
 const HomeWindow = require('./windows/controller/home')
+const {log} = require("./utils/log");
 
 class XiaoQingDeveloperTools {
   constructor() {
@@ -32,8 +33,9 @@ class XiaoQingDeveloperTools {
       }
     });
 
-    app.on('window-all-closed', function () {
+    app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') {
+        log.info('非mac平台app退出')
         app.quit()
       }
     })

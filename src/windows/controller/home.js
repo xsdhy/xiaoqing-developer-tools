@@ -1,6 +1,7 @@
 const {BrowserWindow, BrowserView, ipcMain, dialog, app, Menu} = require('electron')
 const Store = require('electron-store')
 const store = new Store()
+// const icon = require('../../../icons/win.ico')
 
 const path = require('path')
 const name = app.getName()
@@ -23,9 +24,10 @@ class HomeWindow {
       webPreferences: {
         nodeIntegration: true,
         preload: path.join(__dirname, 'preload.js'),
-        // devTools: false
+        devTools: false
       }
     })
+    this.homeWindow?.setIcon(process.platform === 'darwin'?`${path.join(__dirname,'../../../icons/mac.ico')}`:`${path.join(__dirname,'../../../icons/win.ico')}`)
     this.homeWindow.webContents.session.webRequest.onBeforeSendHeaders(this.filter, this.onBeforeSendHeaders);
 
     this.webView = new BrowserView({
@@ -37,12 +39,12 @@ class HomeWindow {
       },
     })
     this.homeWindow.setBrowserView(this.webView)
-    this.webView.setBounds({x: 0, y: 500, width: 1000, height: 700})
+    this.webView.setBounds({x: 0, y: 60, width: this.homeWindow.getBounds().width-16, height: 740})
     // webView.setBounds({x: 0, y: 700, width: 1000, height: 100})
     this.webView.webContents.loadURL(`file://${path.join(__dirname, '../views/index.html')}`)
     this.webView.setAutoResize({width: true, height: true})
-    this.webView.webContents.openDevTools({mode: "right", activate: false})
-    this.homeWindow.openDevTools()
+    this.webView.webContents.openDevTools({mode: "right", activate: true})
+    // this.homeWindow.openDevTools()
     this.initAction()
     this.createMenu()
     // and load the index.html of the app.
@@ -144,22 +146,9 @@ class HomeWindow {
             //     focusedWindow.toggleDevTools()
             // }
           }
-        }, {
+        },
+          {
           type: 'separator'
-        }, {
-          label: '应用程序菜单演示',
-          click: function (item, focusedWindow) {
-            if (focusedWindow) {
-              const options = {
-                type: 'info',
-                title: '应用程序菜单演示',
-                buttons: ['好的'],
-                message: '此演示用于 "菜单" 部分, 展现如何在应用程序菜单中建立可点击的菜单项.'
-              }
-              dialog.showMessageBox(focusedWindow, options, function () {
-              })
-            }
-          }
         }]
       },
       {

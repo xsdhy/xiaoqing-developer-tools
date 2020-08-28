@@ -1,6 +1,6 @@
 {
   "name": "xiaoqing-developer-tools",
-  "version": "0.0.3-beta2",
+  "version": "0.0.3-beta3",
   "description": "XiaoQing,developer,tools",
   "main": "src/main.js",
   "scripts": {
@@ -26,7 +26,8 @@
     "jquery": "^3.5.1",
     "jr-qrcode": "^1.1.4",
     "popper.js": "^1.16.1",
-    "electron-updater": "^4.3.4"
+    "electron-updater": "^4.3.4",
+    "electron-log": "^4.2.4"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",
@@ -53,8 +54,13 @@
       "**/node_modules/jquery/**/*",
       "**/node_modules/bootstrap/**/*",
       "**/node_modules/propper.js/**/*",
-      "**/node_modules/electron-store/**/*"
+      "**/node_modules/electron-store/**/*",
+      "**/node_modules/electron-log/**/*"
     ],
+    "extraResources":  {
+      "from": "./icons/",
+      "to": "icons/"
+    },
     "nsis": {
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
@@ -65,7 +71,7 @@
       "releaseType": "prerelease"
     },
     "releaseInfo": {
-      "releaseNotes": "修复文件未添加到Git导致缺少的问题"
+      "releaseNotes": "修复图标显示问题，添加日志记录"
     }
   }
 }

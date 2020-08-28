@@ -64,13 +64,13 @@ class LoginWindow {
       center: true,
       show: false,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        devTools: false
       }
     })
     this.loginWindow.loadURL(`file://${path.join(__dirname, '../views/login.html')}`)
     this.addUpdateMenuItems(this.menu[0].submenu, 1)
     MenuUtils.generateLoginMenu()
-    // this.loginWindow.openDevTools()
   }
 
   addUpdateMenuItems(items, position) {
@@ -91,6 +91,10 @@ class LoginWindow {
   hide() {
     this.loginWindow.hide();
     this.isShown = false;
+  }
+
+  deInit() {
+    this.loginWindow.destroy()
   }
 }
 

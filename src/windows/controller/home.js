@@ -22,7 +22,8 @@ class HomeWindow {
       show: false,
       webPreferences: {
         nodeIntegration: true,
-        preload: path.join(__dirname, 'preload.js')
+        preload: path.join(__dirname, 'preload.js'),
+        // devTools: false
       }
     })
     this.homeWindow.webContents.session.webRequest.onBeforeSendHeaders(this.filter, this.onBeforeSendHeaders);
@@ -240,6 +241,10 @@ class HomeWindow {
       details.requestHeaders['Authorization'] = "Bearer " + token;
     }
     callback({requestHeaders: details.requestHeaders});
+  }
+
+  deInit() {
+    this.homeWindow.destroy()
   }
 
 }

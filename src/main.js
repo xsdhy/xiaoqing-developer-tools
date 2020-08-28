@@ -13,18 +13,20 @@ class XiaoQingDeveloperTools {
 
   init() {
     this.initApp()
+    this.initIpc()
   }
 
 
   initApp() {
     app.on('ready', () => {
-      this.createLoginWindow();
-      this.createHomeWindow()
+      // this.createLoginWindow();
+      // this.createHomeWindow()
       if (store.get('token')) {
+        this.createHomeWindow()
         this.homeWindow?.show()
-        this.loginWindow?.hide()
+        // this.loginWindow?.hide()
       }else  {
-        this.homeWindow?.hide()
+        this.createLoginWindow()
         this.loginWindow?.show()
       }
     });
@@ -34,17 +36,24 @@ class XiaoQingDeveloperTools {
         app.quit()
       }
     })
+  }
 
+  initIpc() {
+    //监听显示主页
     ipcMain.on('showHome', () => {
-      this.loginWindow?.hide()
-      this.homeWindow?.show()
+      // this.loginWindow?.hide()
+      this.createHomeWindow()
+      this.loginWindow.deInit()
+      this.homeWindow.show()
     })
 
-    // ipcMain.on('open-url', function (event, arg) {
-    //   console.log("收到open-url")
-    //   // console.log(arg);
-    //   // webView.webContents.loadURL(arg);
-    // });
+    ipcMain.on('logout',() => {
+      store.delete('token')
+      store.delete('user')
+      this.createLoginWindow()
+      this.homeWindow.deInit()
+      this.loginWindow.show()
+    })
   }
 
   createLoginWindow() {

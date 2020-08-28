@@ -8,13 +8,17 @@
 
 ## 手动编译
 ### 安装
-`npm install`
+`yarn`
 
 ### 启动
-`npm start` 
+`yarn start` 
 
 ## 打包
-待完善...
+#### mac
+`yarn build:mac`
+
+#### windows
+`yarn build:win64`
 
 # 截图
 ![v0.0.2](/doc/pic/v0.0.2.png)

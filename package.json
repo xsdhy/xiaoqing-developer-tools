@@ -1,14 +1,15 @@
 {
   "name": "xiaoqing-developer-tools",
-  "version": "0.0.2",
+  "version": "0.0.3-beta",
   "description": "XiaoQing,developer,tools",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "electron src/main.js",
     "build:win64": "electron-builder --win --x64",
     "build:win32": "electron-builder --win --x32",
     "build:mac": "electron-builder --mac"
   },
+  "productName": "小青开发者工具",
   "keywords": [
     "xiaoqing",
     "developer-tools"
@@ -19,10 +20,12 @@
     "electron-builder": "^22.8.0"
   },
   "dependencies": {
-    "electron-store": "^6.0.0",
     "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
+    "electron-store": "^6.0.0",
+    "jquery": "^3.5.1",
     "jr-qrcode": "^1.1.4",
-    "jquery": "^3.5.1"
+    "popper.js": "^1.16.1"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",
@@ -44,6 +47,13 @@
       "icon": "icons/win.ico",
       "artifactName": "${productName}-${platform}-${version}.${ext}"
     },
+    "asarUnpack": [
+      "**/node_modules/axios/**/*",
+      "**/node_modules/jquery/**/*",
+      "**/node_modules/bootstrap/**/*",
+      "**/node_modules/propper.js/**/*",
+      "**/node_modules/electron-store/**/*"
+    ],
     "nsis": {
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,

@@ -1,51 +1,61 @@
-const {dialog} = require('electron')
-const {autoUpdater} = require('electron-updater')
+const { dialog } = require('electron')
+const { autoUpdater } = require('electron-updater')
 
-let updater
-autoUpdater.autoDownload = false
-autoUpdater.on('error', (error) => {
-    dialog.showErrorBox('Error: ', error == null ? "unknown" : (error.stack || error).toString())
-})
+class Update {
+    mainWindow
+    constrcut(mainWindow) {
+        this.mainWindow = mainWindow
+        this.error()
+        this.start()
+        this.allow()
+        this.unallowed()
+        this.listen()
+        this.download()
+    }
 
-autoUpdater.on('update-available', () => {
-    dialog.showMessageBox({
-        type: 'info',
-        title: 'Found Updates',
-        message: 'Found updates, do you want update now?',
-        buttons: ['Sure', 'No']
-    }, (buttonIndex) => {
-        if (buttonIndex === 0) {
-            autoUpdater.downloadUpdate()
-        } else {
-            updater.enabled = true
-            updater = null
-        }
-    })
-})
+    Message(type, data) {
+        this.mainWindow.webContents.send('message', type, data)
+    }
 
-autoUpdater.on('update-not-available', () => {
-    dialog.showMessageBox({
-        title: 'No Updates',
-        message: 'Current version is up-to-date.'
-    })
-    updater.enabled = true
-    updater = null
-})
+    error() { // 当更新发生错误的时候触发。
+        autoUpdater.on('error', (err) => {
+            this.Message(-1, err)
+            console.log(err)
+        })
+    }
 
-autoUpdater.on('update-downloaded', () => {
-    dialog.showMessageBox({
-        title: 'Install Updates',
-        message: 'Updates downloaded, application will be quit for update...'
-    }, () => {
-        setImmediate(() => autoUpdater.quitAndInstall())
-    })
-})
+    start() { // 当开始检查更新的时候触发
+        autoUpdater.on('checking-for-update', (event, arg) => {
+            this.Message(0)
+        })
+    }
+    allow() { // 发现可更新数据时
+        autoUpdater.on('update-available', (event, arg) => {
+            this.Message(1)
+        })
+    }
+    unallowed() { // 没有可更新数据时
+        autoUpdater.on('update-not-available', (event, arg) => {
+            this.Message(2)
+        })
+    }
+    listen() { // 下载监听
+        autoUpdater.on('download-progress', () => {
+            this.Message('下载进行中')
+        })
+    }
+    download() { // 下载完成
+        autoUpdater.on('update-downloaded', () => {
+            this.Message(6)
+            setTimeout(m => {
+                autoUpdater.quitAndInstall()
+            }, 1000)
+        })
+    }
 
-// export this to MenuItem click callback
-function checkForUpdates(menuItem, focusedWindow, event) {
-    updater = menuItem
-    updater.enabled = false
-    autoUpdater.checkForUpdates()
+    load() { // 触发器
+        autoUpdater.checkForUpdates()
+    }
 }
 
-module.exports.checkForUpdates = checkForUpdates
+module.exports = Update

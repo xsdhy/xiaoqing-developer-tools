@@ -1,4 +1,5 @@
 const {BrowserWindow, app, Menu} = require('electron')
+const Update = require('../../utils/update')
 
 const path = require('path');
 const MenuUtils = require("../../utils/menu");
@@ -68,6 +69,8 @@ class LoginWindow {
         devTools: false
       }
     })
+    let update = new Update(this.loginWindow)
+    update.load()
     this.loginWindow?.setIcon(process.platform === 'darwin'?`${path.join(__dirname,'../../../icons/mac.ico')}`:`${path.join(__dirname,'../../../icons/win.ico')}`)
     this.loginWindow.loadURL(`file://${path.join(__dirname, '../views/login.html')}`)
     this.addUpdateMenuItems(this.menu[0].submenu, 1)

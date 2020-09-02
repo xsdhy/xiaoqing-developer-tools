@@ -1,6 +1,6 @@
 const {app, ipcMain} = require('electron');
 const Store = require('electron-store')
-const checkForUpdates = require('./utils/update')
+const Update = require('./utils/update')
 const store = new Store()
 
 const LoginWindow = require('./windows/controller/login')
@@ -16,6 +16,7 @@ class XiaoQingDeveloperTools {
   init() {
     this.initApp()
     this.initIpc()
+    this.initUpdate()
   }
 
 
@@ -61,8 +62,7 @@ class XiaoQingDeveloperTools {
 
   //todo 自动更新
   initUpdate() {
-
-
+    new Update().load()
   }
 
   createLoginWindow() {

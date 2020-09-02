@@ -71,7 +71,7 @@
       "releaseType": "prerelease"
     },
     "releaseInfo": {
-      "releaseNotes": "修复图标显示问题，添加日志记录"
+      "releaseNotes": "增加自动更新功能"
     }
   }
 }

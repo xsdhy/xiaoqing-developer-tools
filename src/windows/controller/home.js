@@ -2,6 +2,7 @@ const {BrowserWindow, BrowserView, ipcMain, dialog, app, Menu} = require('electr
 const Update = require('../../utils/update')
 const Store = require('electron-store')
 const store = new Store()
+const {log} = require('../../utils/log')
 // const icon = require('../../../icons/win.ico')
 
 const path = require('path')
@@ -28,8 +29,6 @@ class HomeWindow {
         devTools: false
       }
     })
-    let update = new Update(this.homeWindow)
-    update.load()
     this.homeWindow?.setIcon(process.platform === 'darwin'?`${path.join(__dirname,'../../../icons/mac.ico')}`:`${path.join(__dirname,'../../../icons/win.ico')}`)
     this.homeWindow.webContents.session.webRequest.onBeforeSendHeaders(this.filter, this.onBeforeSendHeaders);
 

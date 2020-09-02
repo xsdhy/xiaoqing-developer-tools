@@ -1,60 +1,77 @@
-const { dialog } = require('electron')
-const { autoUpdater } = require('electron-updater')
+const {dialog} = require('electron')
+const {autoUpdater} = require('electron-updater')
+const {log} = require('./log')
 
 class Update {
-    mainWindow
-    constrcut(mainWindow) {
-        this.mainWindow = mainWindow
+    constructor() {
+        autoUpdater.autoDownload = false
         this.error()
         this.start()
         this.allow()
-        this.unallowed()
+        this.noUpdate()
         this.listen()
         this.download()
     }
 
-    Message(type, data) {
-        this.mainWindow.webContents.send('message', type, data)
-    }
-
     error() { // 当更新发生错误的时候触发。
         autoUpdater.on('error', (err) => {
-            this.Message(-1, err)
-            console.log(err)
+            log.error(err)
         })
     }
 
     start() { // 当开始检查更新的时候触发
         autoUpdater.on('checking-for-update', (event, arg) => {
-            this.Message(0)
+            log.info('开始检查更新')
         })
     }
+
     allow() { // 发现可更新数据时
         autoUpdater.on('update-available', (event, arg) => {
-            this.Message(1)
+            log.info('检查到更新', JSON.stringify(event))
+            dialog.showMessageBox({
+                title: '提示',
+                message: '检查到更新，是否立即更新',
+                detail: event.releaseNotes,
+                buttons: ['yes', 'cancel']
+            }).then(async res => {
+                switch (res.response) {
+                    case 0:
+                        await autoUpdater.downloadUpdate()
+                        break
+                    case 1:
+                        break
+                }
+            })
         })
     }
-    unallowed() { // 没有可更新数据时
+
+    noUpdate() { // 没有可更新数据时
         autoUpdater.on('update-not-available', (event, arg) => {
-            this.Message(2)
+            log.info('无可用更新')
         })
     }
+
     listen() { // 下载监听
         autoUpdater.on('download-progress', () => {
-            this.Message('下载进行中')
+            log.info('开始下载更新')
         })
     }
+
     download() { // 下载完成
         autoUpdater.on('update-downloaded', () => {
-            this.Message(6)
+            log.info('下载更新完成')
             setTimeout(m => {
+                log.info('开始安装更新')
                 autoUpdater.quitAndInstall()
             }, 1000)
         })
     }
 
     load() { // 触发器
-        autoUpdater.checkForUpdates()
+        log.info('检查')
+        autoUpdater.checkForUpdatesAndNotify().then(res => {
+            log.info(`版本：${JSON.stringify(res)}`)
+        })
     }
 }
 

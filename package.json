@@ -1,6 +1,6 @@
 {
   "name": "xiaoqing-developer-tools",
-  "version": "0.0.3-beta3",
+  "version": "0.0.3-beta4",
   "description": "XiaoQing,developer,tools",
   "main": "src/main.js",
   "scripts": {

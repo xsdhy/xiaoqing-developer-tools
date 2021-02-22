@@ -27,9 +27,10 @@
             <div class="col-7">
                 <div class="input-group">
                     <div class="input-group-prepend" style="margin-right: 2px">
-                        <button class="btn btn-secondary btn-sm" type="button">返回</button>
+                        <button class="btn btn-secondary btn-sm" id="go-back" type="button">返回</button>
+                        <button class="btn btn-primary btn-sm" id="go-forward" type="button">前进</button>
                     </div>
-                    <input id="url" type="text" class="form-control" placeholder="输入一个地址">
+                    <input id="url" type="text" class="form-control" placeholder="输入一个地址"/>
                     <div class="input-group-append" style="margin-left: 2px">
                         <button id="button_to_start" class="btn-success btn-sm" type="button">开始</button>
                     </div>
@@ -40,7 +41,8 @@
                 <span class="logout">退出登录</span>
             </div>
         </div>
-        <div class="modal fade" id="logout-confirm-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="logout-confirm-modal" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -93,10 +95,19 @@
     }
 
     button_to_start.onclick = toStart;
+    document.getElementById('go-back').onclick = goBack
+    document.getElementById('go-forward').onclick = goForward
 
     function toStart() {
-        console.log(url.value)
         ipcRenderer.send('open-url', url.value)
+    }
+
+    function goBack() {
+        ipcRenderer.send('go-back')
+    }
+
+    function goForward() {
+        ipcRenderer.send('go-forward')
     }
 </script>
 </body>

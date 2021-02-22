@@ -46,20 +46,32 @@ class HomeWindow {
     this.webView.webContents.loadURL(`file://${path.join(__dirname, '../views/index.html')}`)
     this.webView.setAutoResize({width: true, height: true})
     this.webView.webContents.openDevTools({mode: "right", activate: true})
-    // this.homeWindow.openDevTools()
+    // this.homeWindow.openDevTools({mode: "right", activate: true})
     this.initAction()
     this.createMenu()
     // and load the index.html of the app.
 
   }
 
-  initAction() {
-    this.homeWindow.loadURL(`file://${path.join(__dirname, '../views/top.html')}`)
+  async initAction() {
+    await this.homeWindow.loadURL(`file://${path.join(__dirname, '../views/top.html')}`)
     ipcMain.on('open-url', (event, args) => {
       this.webView.webContents.loadURL(args)
     })
 
-    this.webView.webContents.on('will-navigate', (event, url) => {
+    ipcMain.on('go-back',(event,args)=>{
+        if (this.webView.webContents.canGoBack()) {
+            this.webView.webContents.goBack()
+        }
+    })
+
+    ipcMain.on('go-forward',(event,args)=>{
+      if (this.webView.webContents.canGoForward()) {
+        this.webView.webContents.goForward()
+      }
+    })
+
+    this.webView.webContents.on('did-navigate', (event, url) => {
       this.homeWindow.webContents.send('urlChange', url)
     })
 

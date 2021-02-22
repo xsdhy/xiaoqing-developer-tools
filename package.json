@@ -1,6 +1,6 @@
 {
   "name": "xiaoqing-developer-tools",
-  "version": "0.0.3-beta4",
+  "version": "0.0.3-beta5",
   "description": "XiaoQing,developer,tools",
   "main": "src/main.js",
   "scripts": {
@@ -16,18 +16,18 @@
   ],
   "author": "xsdhy",
   "devDependencies": {
-    "electron": "^9.2.0",
-    "electron-builder": "^22.8.0"
+    "electron": "^11.3.0",
+    "electron-builder": "^22.9.1"
   },
   "dependencies": {
-    "axios": "^0.20.0",
-    "bootstrap": "^4.5.2",
-    "electron-store": "^6.0.0",
+    "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "electron-store": "^7.0.2",
     "jquery": "^3.5.1",
     "jr-qrcode": "^1.1.4",
     "popper.js": "^1.16.1",
-    "electron-updater": "^4.3.4",
-    "electron-log": "^4.2.4"
+    "electron-updater": "^4.3.5",
+    "electron-log": "^4.3.2"
   },
   "build": {
     "appId": "com.luojiaokeji.xiaoqing.developertools",
@@ -71,7 +71,7 @@
       "releaseType": "prerelease"
     },
     "releaseInfo": {
-      "releaseNotes": "增加自动更新功能"
+      "releaseNotes": "更新electron版本"
     }
   }
 }

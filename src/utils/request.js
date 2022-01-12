@@ -2,7 +2,7 @@ const axios = require('axios')
 
 
 const request = axios.create({
-  baseURL: 'https://backend.xiaoqing.xyz/api',
+  baseURL: 'https://xqtx.top/api',
 })
 
 request.interceptors.response.use((res) => {

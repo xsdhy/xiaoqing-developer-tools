@@ -12,7 +12,7 @@ class HomeWindow {
 
   isShown = false
   filter = {
-    urls: ['*://*.xiaoqing.xyz/*'],
+    urls: ['*://*.xiaoqing.xyz/*','*://*.xqtx.top/*'],
     // urls: []
   };
 
